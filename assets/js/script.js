@@ -3,3 +3,5 @@ $(document).ready(function() {
         coverTrigger: false
     });
 }) 
+
+//why does the dropdown still cover the trigger in the footer?

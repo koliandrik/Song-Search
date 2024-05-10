@@ -7,3 +7,15 @@ body {
 main {
     flex: 1 0 auto;
   }
+
+.page-footer {
+    padding: 2vh
+}
+
+ul {
+  margin:0%
+}
+
+.container {
+  width: 95%;
+}

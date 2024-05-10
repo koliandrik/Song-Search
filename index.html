@@ -24,7 +24,7 @@
       <div class="nav-wrapper">
         <a href="#" class="brand-logo center">Song Search</a>
         
-        <ul class="right hide-on-med-and-down">
+        <ul class="right hide-on-small-and-down">
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-trigger blue waves-effect waves-light btn" href="#!" data-target="dropdown1">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
@@ -37,10 +37,11 @@
         <div class="col s12">
           <div class="card">
             <div class="card-content">
-              <span class="card-title">Song Search</span>
+              <span class="card-title center-align">Song Search</span>
               <div class="input-field">
+                <i class="material-icons prefix">audiotrack</i>
                 <input id="lyrics" type="text" class="validate">
-                <label for="lyrics">Enter song lyrics...</label>
+                <label for="lyrics">Enter Artist Name ...</label>
               </div>
               <div class="center">
                 <button id="searchBtn" class="btn waves-effect waves-light" type="submit" name="action">Search
@@ -53,8 +54,20 @@
     </div>
   </main>
 
-  <footer class="page-footer blue">
+  <footer class="page-footer blue p-2">
+    <div>
+      <ul id="dropdown2" class="dropdown-content">
+        <li><a href="#!">Matthew</a></li>
+        <li><a href="#!">Mehrdad</a></li>
+        <li><a href="#!">Nick</a></li>
+        <li><a href="#!">Zachary</a></li>
+      </ul>
+    </div>
 
+    <ul class="center show-on-med-and-down hide-on-med-and-up">
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger blue waves-effect waves-light btn" href="#!" data-target="dropdown2">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
   </footer>
 
 
