@@ -9,5 +9,13 @@ main {
   }
 
 .page-footer {
-    padding-top: 0%;
+    padding: 2vh
+}
+
+ul {
+  margin:0%
+}
+
+.container {
+  width: 95%;
 }
