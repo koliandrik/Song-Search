@@ -92,7 +92,7 @@ const displayArtistSongs = function(data) {
   console.table("Top 3 songs of the artist:", artistSongsDetails);
 }
 
-userFormEl.addEventListener('submit', formSubmitHandler);
+userFormEl.addEventListener('click', formSubmitHandler);
 
 
 $(document).ready(function() {
