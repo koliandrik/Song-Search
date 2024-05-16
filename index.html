@@ -11,82 +11,77 @@
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
-<body>
-  <header class="valign-wrapper">
+<body class="center-align lighten-2">
+  <header>
+    
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#!">Matthew</a></li>
-      <li><a href="#!">Mehrdad</a></li>
-      <li><a href="#!">Nick</a></li>
+      <li><a href="https://github.com/mandrade09">Matthew</a></li>
+      <li><a href="https://reztndev.github.io/Advanced-CSS-Portfolio/">Mehrdad</a></li>
+      <li><a href="https://koliandrik.github.io/Week-2/">Nick</a></li>
       <li><a href="#!">Zachary</a></li>
     </ul>
-
-    <nav class="blue">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Song Search</a>
-        
+    
+    <nav class="navbar">
+      <h1 class="left-align">Song Search</h1>
+               
         <ul class="right hide-on-small-and-down">
           <!-- Dropdown Trigger -->
-          <li><a class="dropdown-trigger blue waves-effect waves-light btn" href="#!" data-target="dropdown1">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-trigger waves-effect waves-light btn black-text" href="#!" data-target="dropdown1">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
-      </div>
+        
+      
     </nav>
+    
   </header>
 
   <main>
-    <div class="container">
+    <div>
       <div class="row">
         <div class="col s12">
           <div class="card">
-            <div class="card-content">
-              <span class="card-title center-align">Song Search</span>
-<<<<<<< HEAD
-              <div class="input-field">
-                <i class="material-icons prefix">audiotrack</i>
-                <input id="input-artist" type="text" class="validate">
-                <label for="input-artist">Enter Artist Name ...</label>
+            <div class="card-content black-text">
+              <div class="container">
+                <form id="user-form">
+                  <div class="input-field">
+                    <i class="material-icons prefix">audiotrack</i>
+                    <input id="input-artist" type="text" class="validate">
+                    <label for="input-artist" class="black-text">Enter Artist Name ...</label>
+                  </div>
+                  <div class="center">
+                    <button id="submitBtn" class="btn btn-large waves-effect waves-light black-text" type="submit" name="action">Search
+                      <i class="material-icons right">search</i></button>
+                  </div>
+                </form>
               </div>
-              <div id= "user-form" class="center">
-                <button id="searchBtn" class="btn waves-effect waves-light" type="submit" name="action">Search
-                  <i class="material-icons right">search</i></button>
-              </div>
-=======
-              <form id="user-form">
-                <div class="input-field">
-                  <i class="material-icons prefix">audiotrack</i>
-                  <input id="input-artist" type="text" class="validate">
-                  <label for="input-artist">Enter Artist Name ...</label>
-                </div>
-                <div class="center">
-                  <button id="submitBtn" class="btn waves-effect waves-light" type="submit" name="action">Search
-                    <i class="material-icons right">search</i></button>
-                </div>
-              </form>
-              <div id="artist-info" class="center-align"></div>
->>>>>>> 2d2554952ef23882f38e3446db2e1441ae82599a
             </div>
           </div>
+
+          <div id="artist-albums"></div>
+
+          <div id="artist-tracks"></div>
+          <div id="lyrics"></div>
+          </div>
+
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="page-footer blue p-2">
+  <footer>
     <div>
       <ul id="dropdown2" class="dropdown-content">
-        <li><a href="#!">Matthew</a></li>
-        <li><a href="#!">Mehrdad</a></li>
-        <li><a href="#!">Nick</a></li>
+        <li><a href="https://github.com/mandrade09">Matthew</a></li>
+        <li><a href="https://reztndev.github.io/Advanced-CSS-Portfolio/">Mehrdad</a></li>
+        <li><a href="https://koliandrik.github.io/Week-2/">Nick</a></li>
         <li><a href="#!">Zachary</a></li>
       </ul>
     </div>
 
     <ul class="center show-on-med-and-down hide-on-med-and-up">
       <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger blue waves-effect waves-light btn" href="#!" data-target="dropdown2">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-trigger waves-effect waves-light btn" href="#!" data-target="dropdown2">Made-by<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
   </footer>
-
-
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

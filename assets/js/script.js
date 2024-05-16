@@ -1,6 +1,8 @@
 const userFormEl = document.querySelector('#user-form');
 const nameInputEl = document.querySelector('#input-artist');
-const artistInfoEl = document.querySelector('#artist-info');
+const artistAlbumEl = document.querySelector('#artist-albums');
+const artistTrackEl = document.querySelector('#artist-tracks');
+const lyricsDisplay = document.querySelector('#lyrics');
 
 /*********************************************************************************************************
  * formSubmitHandler
@@ -17,6 +19,10 @@ const artistInfoEl = document.querySelector('#artist-info');
 const formSubmitHandler = function (event) {
   event.preventDefault();
 
+  artistAlbumEl.innerHTML = ``;
+  artistTrackEl.innerHTML = ``;
+  lyricsDisplay.innerHTML = ``;
+
   const artistName = nameInputEl.value.trim();
 
   if (artistName) {
@@ -26,7 +32,6 @@ const formSubmitHandler = function (event) {
     alert('Please enter the artist name');
   }
 };
-
 /*********************************************************************************************************
  * getArtistInfo
  * 
@@ -69,7 +74,7 @@ async function getArtistInfo(artistName) {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 /*********************************************************************************************************
  *  displayArtistInfo
@@ -101,31 +106,61 @@ const displayArtistInfo = function(artistName, data) {
         name: data.albums.items[2].data.name,
         date: data.albums.items[2].data.date.year,
         image: data.albums.items[2].data.coverArt.sources[0].url,
-      }
+      },
     },
 
-    playLists: {
+    Tracks: {
       1: {
-        name:  data.playlists.items[0].data.name,
-        description: data.playlists.items[0].data.description,
-        image: data.playlists.items[0].data.images.items[0].sources[0].url,
-        playList: processPlayList(data.playlists.items[0].data.uri),
+        name:  data.tracks.items[0].data.name,
+        id: data.tracks.items[0].data.id,
+        track: processTrack(data.tracks.items[0].data.uri),
       },
       2: {
-        name:  data.playlists.items[1].data.name,
-        description: data.playlists.items[1].data.description,
-        image: data.playlists.items[1].data.images.items[0].sources[0].url,
-        //playList: data.playlists.items[1].data.uri,
-        playList: processPlayList(data.playlists.items[1].data.uri),
+        name:  data.tracks.items[1].data.name,
+        id: data.tracks.items[1].data.id,
+        track: processTrack(data.tracks.items[1].data.uri),
       },
       3: {
-        name:  data.playlists.items[2].data.name,
-        description: data.playlists.items[2].data.description,
-        image: data.playlists.items[2].data.images.items[0].sources[0].url,
-        playList: data.playlists.items[2].data.uri,
-        playList: processPlayList(data.playlists.items[2].data.uri),
+        name:  data.tracks.items[2].data.name,
+        id: data.tracks.items[2].data.id,
+        track: processTrack(data.tracks.items[2].data.uri),
       },
-    }
+      4: {
+        name:  data.tracks.items[3].data.name,
+        id: data.tracks.items[3].data.id,
+        track: processTrack(data.tracks.items[3].data.uri),
+      },
+      5: {
+        name:  data.tracks.items[4].data.name,
+        id: data.tracks.items[4].data.id,
+        track: processTrack(data.tracks.items[4].data.uri),
+      },
+      6: {
+        name:  data.tracks.items[5].data.name,
+        id: data.tracks.items[5].data.id,
+        track: processTrack(data.tracks.items[5].data.uri),
+      },
+      7: {
+        name:  data.tracks.items[6].data.name,
+        id: data.tracks.items[6].data.id,
+        track: processTrack(data.tracks.items[6].data.uri),
+      },
+      8: {
+        name:  data.tracks.items[7].data.name,
+        id: data.tracks.items[7].data.id,
+        track: processTrack(data.tracks.items[7].data.uri),
+      },
+      9: {
+        name:  data.tracks.items[8].data.name,
+        id: data.tracks.items[8].data.id,
+        track: processTrack(data.tracks.items[8].data.uri),
+      },
+      10: {
+        name:  data.tracks.items[9].data.name,
+        id: data.tracks.items[9].data.id,
+        track: processTrack(data.tracks.items[9].data.uri),
+      },
+    },
   }; // end artistPortfolio
 
 
@@ -134,57 +169,66 @@ const displayArtistInfo = function(artistName, data) {
 
 // Creating HTML content to display artist information
 
-let artistInfoHTML = `<h4>Top 3 results of ${artistName}:</h4>`;
-artistInfoHTML += `<div class="row">`;
+artistAlbumEl.classList.add('card');
+
+let artistAlbumHTML = `<div class ='card-content black-text'>`;
+artistAlbumHTML += `<h4>Top 3 Albums of ${artistPortfolio.artistFullName}:</h4>`;
+artistAlbumHTML += `<div class="row">`;
 
 // Looping through the top 3 albums of the artist
 
 for (let i = 1; i <= 3; i++) {
-  artistInfoHTML += `
+  artistAlbumHTML += `
     <div class="col s12 m4">
       <div class="card">
         <div class="card-image">
           <img src="${artistPortfolio.Albums[i].image}" alt="${artistPortfolio.Albums[i].name}">
-          <span class="card-title">${artistPortfolio.Albums[i].name}</span>
+          <span class="card-title text-dark">${artistPortfolio.Albums[i].name}</span>
         </div>
         <div class="card-content">
-          <p>Release Year: ${artistPortfolio.Albums[i].date}</p>
+          <h3>Release Year: ${artistPortfolio.Albums[i].date}</h3>
         </div>
       </div>
     </div>
   `;
 }
 
-artistInfoHTML += `</div>`;  // Closing row div for albums
+artistAlbumHTML += `</div>`;  // Closing row div for albums
+  // Header indicating artist's name for playlists
+artistAlbumHTML += `</div>`;
 
-artistInfoHTML += `<h4>Top 3 playlists of ${artistName}:</h4>`;  // Header indicating artist's name for playlists
+artistTrackEl.classList.add('card');
 
-artistInfoHTML += `<div class="row">`;  // Opening row div for playlists
-
+let artistTrackHTML = `<div class ='card-content black-text'>`;  // Opening row div for playlists
+artistTrackHTML += `<h4>Top Tracks from ${artistPortfolio.artistFullName}:</h4>`;
+artistTrackHTML += `<div class="container">`
 // Looping through the top 3 playlists of the artist
-for (let i = 1; i <= 3; i++) {
-  artistInfoHTML += `
-    <div class="col s12 m4">
-      <div class="card">
-        <div class="card-image">
-          <img src="${artistPortfolio.playLists[i].image}" alt="${artistPortfolio.playLists[i].name}">
-          <span class="card-title">${artistPortfolio.playLists[i].name}</span>
-        </div>
-        <div class="card-content">
-          <p>${artistPortfolio.playLists[i].description}</p>
-          <a href="${artistPortfolio.playLists[i].playList}" target="_blank" class="waves-effect waves-light btn">Listen</a>
-        </div>
+for (let i = 1; i <= 10; i++) {
+  artistTrackHTML += `
+    <div class="card song-card">
+      <div class="card-content">
+        <a href="${artistPortfolio.Tracks[i].track}" target="_blank" class="black-text waves-effect waves-light btn">${artistPortfolio.Tracks[i].name}</a>
+        <button class="btn btn-med waves-effect waves-light black-text get-lyrics-btn" data-track-url="${artistPortfolio.Tracks[i].id}"><i class="material-icons">subject</i></button>
       </div>
     </div>
   `;
 }
 
-artistInfoHTML += `</div>`; // Closing row div for playlists
-
-artistInfoEl.innerHTML = artistInfoHTML; // Update the HTML content of the specified element
-}
+artistTrackHTML += `</div></div>`; // Closing col div, row div, and row div for tracks
 
 
+artistAlbumEl.insertAdjacentHTML('beforeend', artistAlbumHTML); // Insert the HTML content at the end of the specified element
+artistTrackEl.insertAdjacentHTML('beforeend', artistTrackHTML);
+
+document.querySelectorAll('.get-lyrics-btn').forEach(button => {
+  button.addEventListener('click', function(event) {
+    event.preventDefault();
+    const trackId = event.currentTarget.getAttribute('data-track-url');
+    console.log("Track ID:", trackId); // Add this line to debug
+    getLyrics(trackId);
+  });
+});
+};
 /*********************************************************************************************************
  *  processPlayList
  * 
@@ -195,18 +239,58 @@ artistInfoEl.innerHTML = artistInfoHTML; // Update the HTML content of the speci
  * 
  * ********************************************************************************************************
 */
-const processPlayList = function(playList) {
-  
-  const playListArray = playList.split(":");
+const processTrack = function(track) {
+  const trackArray = track.split(":");
+  const baseUrl = 'https://open.spotify.com/track/';
+  const trackSearchTerm = trackArray[2];
+  const trackClickableUrl = baseUrl + trackSearchTerm;
 
-  const baseUrl = 'https://open.spotify.com/playlist/';
-  const playListSearchTerm = playListArray[2];
-  const playListClickableUrl = baseUrl + playListSearchTerm;
+  return trackClickableUrl;
+};
 
-  return playListClickableUrl;
-}
+const getLyrics = async function(track) {
+  console.log("Fetching lyrics for track ID:", track);
+  const url = `https://spotify-web2.p.rapidapi.com/track_lyrics/?id=${track}`;
 
-/*********************************************************************************************************
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'c2062f4901mshf330d409dbb6836p1769c5jsna4924e5a2cd1',
+      'X-RapidAPI-Host': 'spotify-web2.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    console.log(result);
+    displayLyrics(result);
+  } catch (error) {
+    console.error("Error fetching lyrics:", error);
+  }
+};
+
+
+function displayLyrics(data) {
+  const lyrics = data.lyrics;
+  lyricsDisplay.innerHTML = ''; // Clear previous lyrics
+  lyricsDisplay.classList.add('card', 'lyrics-display');
+  let lyricsDisplayHTML = `<div class='card-content row black-text'><h4>Lyrics:</h4><div class='col s12'>`;
+
+  if (lyrics && lyrics.lines) {
+    lyrics.lines.forEach(line => {
+      lyricsDisplayHTML += `<p>${line.words}</p>`;
+    });
+  } else {
+    lyricsDisplayHTML += `<p>No lyrics found.</p>`;
+  }
+
+  lyricsDisplayHTML += `</div></div>`;
+  lyricsDisplay.innerHTML = lyricsDisplayHTML; // Update the DOM with new lyrics
+};
+
+
+  /*********************************************************************************************************
  *  User Form Event Listener
  * 
  * Description:
@@ -217,11 +301,9 @@ const processPlayList = function(playList) {
 */
 userFormEl.addEventListener('submit', formSubmitHandler);
 
-
 $(document).ready(function() {
     $(".dropdown-trigger").dropdown({
         coverTrigger: false
+        
     });
-}) 
-
-//why does the dropdown still cover the trigger in the footer?
+});

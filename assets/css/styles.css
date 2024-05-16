@@ -1,21 +1,195 @@
-body {
+:root{
+  --blue:#003366;
+  --light-blue: #87CEEB;
+  --coral: #FF7F50;
+  --white: #F8F8F8;
+}
+
+html, body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
+    line-height: 100%;
+}
+body {
+  background-color:var(--light-blue);
+  font-family: 'Roboto', sans-serif; /* A more modern, readable font */
+}
 
 main {
     flex: 1 0 auto;
-  }
-
-.page-footer {
-    padding: 2vh
 }
 
-ul {
-  margin:0%
+.navbar {
+  background-color: var(--blue);
+  margin-bottom: 1rem;
+  padding:20px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar h1 {
+  margin: 0;
+  flex-grow: 1;
+  font-size: 2.75rem;
+  font-weight: bold;
+  color: var(--white);
+}
+
+h3{
+  padding: auto;
+  font-size: 3rem;
+  color: var(--white);
+}
+
+h4 {
+margin-bottom: 3rem;
+padding: 1rem;
+font-size: 4rem;
+border: 0.5rem inset var(--blue);
+font-weight: 300;
+background-color: var(--blue);
+color: var(--white);
+border-radius: 10px;
+}
+
+a {
+  background-color: #FF7F50;
+}
+
+.page-footer {
+    padding: 2vh;
+    margin:0;
+    position:relative;
+
 }
 
 .container {
-  width: 95%;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  border: none; /* Remove borders for a cleaner look */
+  background-color: var(--blue);
+  border-radius: 10px;
+  border: 1rem inset var(--blue);
+  width: auto;
+}
+
+.card-content {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.card .card-content {
+  padding: 1rem
+}
+
+.input-field {
+  border: .5rem inset var(--blue);
+  border-radius: 5px;
+  background-color: var(--white);
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.song-card  .card-content {
+  padding: 0;
+}
+
+.song-card {
+  align-items: normal;
+  width: auto;
+  background-color: var(--blue);
+  margin:auto
+}
+
+#artist-tracks {
+  width: 45vw;
+  float: left;
+}
+
+.btn {
+  background-color: var(--coral);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: auto;
+}
+
+#user-form {
+  padding-top: 1rem;
+  padding-right: 1rem;
+
+}
+
+#submitBtn {
+  margin: 1rem;
+}
+
+.lyrics-display h4 {
+  font-size: 24px; /* Larger size for headings */
+}
+
+
+.lyrics-display {
+  background-color: var(--white); /* Pure white background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* More pronounced shadow */
+  width: 49vw;
+  text-align: center;
+  float:right;
+}
+
+
+
+.get-lyrics-btn {
+  width: auto;
+  margin: auto;
+}
+
+.btn:hover {
+  background-color: var(--light-blue); /* Darker blue on hover */
+}
+
+@media (max-width: 768px) {
+  .lyrics-display {
+    padding: 15px;
+    font-size: 16px; /* Slightly smaller font size on smaller screens */
+    margin: auto;
+    width: auto;
+    float: initial;
+  }
+
+
+  h3{
+    font-size: 15px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  .song-card {
+    justify-content: space-between;
+  }
+
+  .get-lyrics-btn{
+    margin-top: 5px;
+  }
+
+  .lyrics-display h4 {
+    font-size: 20px;
+  }
+
+  .lyrics-display p {
+    font-size: 16px;
+  }
+
+  #artist-tracks {
+    width: auto;
+    align-items: center;
+    float: initial;
+  }
 }
