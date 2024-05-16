@@ -88,3 +88,10 @@ Use this [project presentation template](https://docs.google.com/presentation/d/
 * Directions for Future Development
 
 * Links to the deployed application and the GitHub repository
+![alt text](assets/img/127.0.0.1_5500_Projects_Song-Search_index.html.png)
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (1).png>) 
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (2).png>) 
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (3).png>) 
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (4).png>) 
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (5).png>) 
+![alt text](<assets/img/127.0.0.1_5500_Projects_Song-Search_index.html (6).png>) 
