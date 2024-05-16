@@ -1,97 +1,165 @@
 const userFormEl = document.querySelector('#user-form');
 const nameInputEl = document.querySelector('#input-artist');
 
-const accessToken = 'BQBoQjvLTbalB5BJmFf29ZrwgUh-54MrYYdAj6OAhSiWyt2OHPZ3FwtsDNROyNGSFGSudoptBM__du2EBiWAiYtp-Q0MVoVgIRaOkmkhz4qCWlEGcCivxn8HysZb88Bel0xmpagqW9TdWZyn9mTNXBLQWGsIagJzg0Ant0U_tOeghztdHkN5pr9kmVR8n_QUdz63EC6cZxw6YUB_nx0';
-
+/*********************************************************************************************************
+ * formSubmitHandler
+ * 
+ * Description:
+ * 
+ * This is the submit event handler that gets invoked when the artist name is entered and submit
+ * button is pressed.
+ * 
+ * It calls the main function getArtistInfo() to search and retrieve artist's portfolio
+ * 
+ * ********************************************************************************************************
+*/
 const formSubmitHandler = function (event) {
   event.preventDefault();
 
   const artistName = nameInputEl.value.trim();
 
   if (artistName) {
-    getArtistSongSearchUrl(artistName);   // <-- Start of our thread to get the info on the submitted artist
-    
+    getArtistInfo(artistName);
     nameInputEl.value = '';
   } else {
     alert('Please enter the artist name');
   }
 };
 
-const getArtistSongSearchUrl = function (artistName) {
+/*********************************************************************************************************
+ * getArtistInfo
+ * 
+ * Description:
+ * 
+ * This module uses the provided artist name to create a searchable endpoint to use with Rapidapi
+ * Once the endpoint is invoked, it returns a data structure that includes the artist's portfolio
+ * The portfolio object is the sent to displayArtistInfo() to parse out three examples of the artist's work
+ * 
+ * ********************************************************************************************************
+*/
+async function getArtistInfo(artistName) {
+
+  const fullName = artistName.split(" ");
+  const firstName = fullName[0];
+  const lastName = fullName[1];
+
+  // Create a Rapidapi searchable endpoint using the artist name
+  const baseUrl = 'https://spotify-web2.p.rapidapi.com/search/?q=';
+  const trailingUrl = '&type=multi&offset=0&limit=10&numberOfTopResults=5';
+  const space = '%20';
+  const fullUrl = baseUrl + firstName + space + lastName + trailingUrl;
   
-  const artistIdSearchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
-
-  fetch(artistIdSearchUrl, { headers: {
-    Authorization: `Bearer ${accessToken}`,
-    }})
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-          // We extract the (artist Id) here   
-          let artistId = data.artists.items[0].id;  // <-- Artist's ID
-
-          console.log("Artist's name: ", artistName);
-          console.log("Artist's Spotify ID: ", artistId);
-
-          // Using the Artist's extracted ID, we build the endpoint for the (top tracks) here
-          let artistSongSearchUrl = 'https://api.spotify.com/v1/artists/' + artistId + '/top-tracks';
-
-          // Now given that the execution must be in scope and on the same thread that we started
-          // we now call another function to get the Artists Songs, by passing it the (top tracks) endpoint
-          getArtistSongs(artistSongSearchUrl);  // <-- get the bundle that includes the Artist's Songs, images, etc.
-        });
-      } else {
-        alert(`Error:${response.statusText}`);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to server');
-    });
-}
-
-const getArtistSongs = function(artistSongSearchUrl) {
-  fetch(artistSongSearchUrl, { headers: {
-    Authorization: `Bearer ${accessToken}`,
-  }})
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          //console.log("Inside getArtistSongs(), data: ", data);
-
-          //Now that we have the artist's songs bundle, we'll call the final API below to extract and display the artist's songs
-          displayArtistSongs( data );
-        });
-      } else {
-        alert(`Error:${response.statusText}`);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to server');
-    });
-}
-
-const displayArtistSongs = function(data) {
-  console.log("Inside displayArtistSongs(), data: ", data);
-  const artistName = data.tracks[0].artists[0].name;
-  
-  artistSongsDetails = {
-    song1Name: data.tracks[0].name,
-    song1PreviewUrl: data.tracks[0].preview_url,
-    song1Image: data.tracks[0].album.images[2],
-
-    song2Name: data.tracks[1].name,
-    song2PreviewUrl: data.tracks[1].preview_url,
-    song2Image: data.tracks[1].album.images[2],
-
-    song3Name: data.tracks[2].name,
-    song3PreviewUrl: data.tracks[2].preview_url,
-    song3Image: data.tracks[2].album.images[2],
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'f2b82f2c9amshd0e5de0c4f0d779p101d0ejsn6ac918b7951d',
+      'X-RapidAPI-Host': 'spotify-web2.p.rapidapi.com'
+    }
   };
 
-  console.table("Top 3 songs of the artist:", artistSongsDetails);
+  try {
+    const response = await fetch(fullUrl, options);
+    const result = await response.json();
+    console.log(result);
+
+    // Now that we have all the info about the artist (result), go and make the relevant pieces accessible for the UI 
+    displayArtistInfo(artistName, result);
+
+  } catch (error) {
+    console.error(error);
+  }
 }
 
+/*********************************************************************************************************
+ *  displayArtistInfo
+ * 
+ * Description:
+ * 
+ * This module parse out three examples of the artist's work, including playlists, and makes it accessible 
+ * for the UI in form of a data structure (object)
+ * 
+ * ********************************************************************************************************
+*/
+const displayArtistInfo = function(artistName, data) {
+  artistPortfolio = {
+
+    artistFullName: artistName,
+
+    Albums: {
+      1: {
+        name: data.albums.items[0].data.name,
+        date: data.albums.items[0].data.date.year,
+        image: data.albums.items[0].data.coverArt.sources[0].url,
+      },
+      2: {
+        name: data.albums.items[1].data.name,
+        date: data.albums.items[1].data.date.year,
+        image: data.albums.items[1].data.coverArt.sources[0].url,
+      },
+      3: {
+        name: data.albums.items[2].data.name,
+        date: data.albums.items[2].data.date.year,
+        image: data.albums.items[2].data.coverArt.sources[0].url,
+      }
+    },
+
+    playLists: {
+      1: {
+        name:  data.playlists.items[0].data.name,
+        description: data.playlists.items[0].data.description,
+        image: data.playlists.items[0].data.images.items[0].sources[0].url,
+        playList: processPlayList(data.playlists.items[0].data.uri),
+      },
+      2: {
+        name:  data.playlists.items[1].data.name,
+        description: data.playlists.items[1].data.description,
+        image: data.playlists.items[1].data.images.items[0].sources[0].url,
+        //playList: data.playlists.items[1].data.uri,
+        playList: processPlayList(data.playlists.items[1].data.uri),
+      },
+      3: {
+        name:  data.playlists.items[2].data.name,
+        description: data.playlists.items[2].data.description,
+        image: data.playlists.items[2].data.images.items[0].sources[0].url,
+        playList: data.playlists.items[2].data.uri,
+        playList: processPlayList(data.playlists.items[2].data.uri),
+      },
+    }
+  }; // end artistPortfolio
+
+  console.table("Top 3 results of the artist:", artistPortfolio);
+}
+
+/*********************************************************************************************************
+ *  processPlayList
+ * 
+ * Description:
+ * 
+ * The playlist provided by Rapidapi is a google searchable URL.
+ * This module reconstructs the Rapidapi provided playlist in order to create the final landing page for the playlist
+ * 
+ * ********************************************************************************************************
+*/
+const processPlayList = function(playList) {
+  
+  const playListArray = playList.split(":");
+
+  const baseUrl = 'https://open.spotify.com/playlist/';
+  const playListSearchTerm = playListArray[2];
+  const playListClickableUrl = baseUrl + playListSearchTerm;
+
+  return playListClickableUrl;
+}
+
+/*********************************************************************************************************
+ *  User Form Event Listener
+ * 
+ * Description:
+ * 
+ * Listens for the Submit button and calls its handler when pressed
+ * 
+ * ********************************************************************************************************
+*/
 userFormEl.addEventListener('submit', formSubmitHandler);
 
 
