@@ -1,5 +1,6 @@
 const userFormEl = document.querySelector('#user-form');
 const nameInputEl = document.querySelector('#input-artist');
+const artistInfoEl = document.querySelector('#artist-info');
 
 /*********************************************************************************************************
  * formSubmitHandler
@@ -127,8 +128,62 @@ const displayArtistInfo = function(artistName, data) {
     }
   }; // end artistPortfolio
 
-  console.table("Top 3 results of the artist:", artistPortfolio);
+
+//   console.table("Top 3 results of the artist:", artistPortfolio);
+// }
+
+// Creating HTML content to display artist information
+
+let artistInfoHTML = `<h4>Top 3 results of ${artistName}:</h4>`;
+artistInfoHTML += `<div class="row">`;
+
+// Looping through the top 3 albums of the artist
+
+for (let i = 1; i <= 3; i++) {
+  artistInfoHTML += `
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-image">
+          <img src="${artistPortfolio.Albums[i].image}" alt="${artistPortfolio.Albums[i].name}">
+          <span class="card-title">${artistPortfolio.Albums[i].name}</span>
+        </div>
+        <div class="card-content">
+          <p>Release Year: ${artistPortfolio.Albums[i].date}</p>
+        </div>
+      </div>
+    </div>
+  `;
 }
+
+artistInfoHTML += `</div>`;  // Closing row div for albums
+
+artistInfoHTML += `<h4>Top 3 playlists of ${artistName}:</h4>`;  // Header indicating artist's name for playlists
+
+artistInfoHTML += `<div class="row">`;  // Opening row div for playlists
+
+// Looping through the top 3 playlists of the artist
+for (let i = 1; i <= 3; i++) {
+  artistInfoHTML += `
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-image">
+          <img src="${artistPortfolio.playLists[i].image}" alt="${artistPortfolio.playLists[i].name}">
+          <span class="card-title">${artistPortfolio.playLists[i].name}</span>
+        </div>
+        <div class="card-content">
+          <p>${artistPortfolio.playLists[i].description}</p>
+          <a href="${artistPortfolio.playLists[i].playList}" target="_blank" class="waves-effect waves-light btn">Listen</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+artistInfoHTML += `</div>`; // Closing row div for playlists
+
+artistInfoEl.innerHTML = artistInfoHTML; // Update the HTML content of the specified element
+}
+
 
 /*********************************************************************************************************
  *  processPlayList
