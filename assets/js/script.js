@@ -49,7 +49,7 @@ async function getArtistInfo(artistName) {
 
   const fullName = artistName.split(" ");
   const firstName = fullName[0];
-  const lastName = fullName[1];
+  const lastName = fullName.slice(1).join(" ");
 
   // Create a Rapidapi searchable endpoint using the artist name
   const baseUrl = 'https://spotify-web2.p.rapidapi.com/search/?q=';
