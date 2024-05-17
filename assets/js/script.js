@@ -1,6 +1,7 @@
 const userFormEl = document.querySelector('#user-form');
 const nameInputEl = document.querySelector('#input-artist');
 const artistInfoEl = document.querySelector('#artist-info');
+const dialogMessage = document.querySelector('#dialog-message');
 
 /*********************************************************************************************************
  * formSubmitHandler
@@ -64,11 +65,38 @@ async function getArtistInfo(artistName) {
     console.log(result);
 
     // Now that we have all the info about the artist (result), go and make the relevant pieces accessible for the UI 
-    displayArtistInfo(artistName, result);
+    // First ensure that the user entry is not gibberish and that the API service can actually find it
+    // If the entry is gibberish popup a prompt to the user asking them to provide a valid artist name
+    if( result.artists.items[0].data.profile.name ) {
+      displayArtistInfo(artistName, result); 
+    }
+    else {
+      console.log("The entered artist name does not exist");
+    
+      displayPrompt("Enter a valid artist name!");
+    }
 
   } catch (error) {
     console.error(error);
+    displayPrompt("Enter a valid artist name!");
   }
+}
+
+/*********************************************************************************************************
+ * displayPrompt
+ * 
+ * Description:
+ * 
+ * This helper function displays a prompt modal informing the user that their entry is not valid.  The caller
+ * provides the message that is to be displayed in this popup dialog. 
+ * 
+ * ********************************************************************************************************
+ */
+const displayPrompt = function(message) {
+  dialogMessage.textContent = message;
+  $(function () {
+    $('#dialog').dialog();
+  });
 }
 
 /*********************************************************************************************************
