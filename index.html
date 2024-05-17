@@ -8,6 +8,8 @@
   <title>Song Search</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha512-UJfAaOlIRtdR+0P6C3KUoTDAxVTuy3lnSXLyLKlHYJlcSU8Juge/mjeaxDNMlw9LgeIotgz5FP8eUQPhX1q10A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- The following jquery-ui.css is needed to support the inpput validation prompt to the user -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
@@ -74,6 +76,10 @@
     </ul>
   </footer>
 
+  <!-- This div with an empty <p> element is used to display the input validation prompt to the user -->
+  <div id="dialog" title="Alert">
+    <p id="dialog-message"></p>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
