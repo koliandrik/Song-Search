@@ -14,6 +14,7 @@ html, body {
 body {
   background-color:var(--light-blue);
   font-family: 'Roboto', sans-serif; /* A more modern, readable font */
+  padding: 1rem;
 }
 
 main {
@@ -34,6 +35,12 @@ main {
   font-size: 2.75rem;
   font-weight: bold;
   color: var(--white);
+}
+
+p {
+  line-height: 32px;
+  margin-bottom: 30px;
+  font-size: 5rem;
 }
 
 h3{
@@ -65,15 +72,14 @@ a {
 }
 
 .container {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
 }
 
 .card {
   border: none; /* Remove borders for a cleaner look */
   background-color: var(--blue);
   border-radius: 10px;
-  border: 1rem inset var(--blue);
   width: auto;
 }
 
@@ -87,7 +93,6 @@ a {
 }
 
 .input-field {
-  border: .5rem inset var(--blue);
   border-radius: 5px;
   background-color: var(--white);
   padding: 0.5rem;
@@ -95,18 +100,17 @@ a {
 }
 
 .song-card  .card-content {
-  padding: 0;
+ margin: 0;
 }
 
 .song-card {
-  align-items: normal;
-  width: auto;
+  display: flex;
+  justify-content: flex-end;
   background-color: var(--blue);
-  margin:auto
 }
 
 #artist-tracks {
-  width: 45vw;
+  width: 50%;
   float: left;
 }
 
@@ -115,7 +119,7 @@ a {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: auto;
+  margin: 1rem;
 }
 
 #user-form {
@@ -130,19 +134,27 @@ a {
 
 .lyrics-display h4 {
   font-size: 24px; /* Larger size for headings */
+  margin: 2rem;
+  padding: auto;
 }
 
 
 .lyrics-display {
-  background-color: var(--white); /* Pure white background */
+  background-color: var(--blue); /* Pure white background */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* More pronounced shadow */
-  width: 49vw;
+  width: 45%;
   text-align: center;
-  float:right;
+  float:right;;
 }
 
-
+.lyrics-display p {
+  background-color:var(--blue);
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Larger size for headings */
+  margin-top: 5;
+  color: var(--white);
+}
 
 .get-lyrics-btn {
   width: auto;
@@ -171,9 +183,6 @@ a {
     font-size: 20px;
   }
 
-  .song-card {
-    justify-content: space-between;
-  }
 
   .get-lyrics-btn{
     margin-top: 5px;
@@ -191,5 +200,26 @@ a {
     width: auto;
     align-items: center;
     float: initial;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .lyrics-display h4 {
+    font-size: 40px;
+    }
+
+  .lyrics-display {
+    width: 100%;
+    float:initial;
+  }
+
+  #artist-tracks {
+    width: 100%;
+    float: initial;
+  }
+
+  .song-card {
+    justify-content: center;
   }
 }

@@ -275,7 +275,7 @@ function displayLyrics(data) {
   const lyrics = data.lyrics;
   lyricsDisplay.innerHTML = ''; // Clear previous lyrics
   lyricsDisplay.classList.add('card', 'lyrics-display');
-  let lyricsDisplayHTML = `<div class='card-content row black-text'><h4>Lyrics:</h4><div class='col s12'>`;
+  let lyricsDisplayHTML = `<h4>Lyrics:</h4><div class='card-content row black-text'><div class='col s12'>`;
 
   if (lyrics && lyrics.lines) {
     lyrics.lines.forEach(line => {
