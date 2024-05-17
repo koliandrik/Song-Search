@@ -14,7 +14,6 @@ html, body {
 body {
   background-color:var(--light-blue);
   font-family: 'Roboto', sans-serif; /* A more modern, readable font */
-  padding: 1rem;
 }
 
 main {
