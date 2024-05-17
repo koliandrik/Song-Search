@@ -11,29 +11,24 @@ Nick was here
 
 ## Acceptance-Criteria
 
+## User-Story
 ```
-GIVEN when I visit the web application I should see a search bar where i can input song lyrics.
-WHEN I input song lyrics
-THEN I should see a list of songs that match the lyrics
-WHEN I find the song I am looking for
-THEN I can save it to my searched songs
-THEN I can add the song to my spotify playlist
-WHEN I input lyrics that are not recognized
-THEN I am presented with a window indicating that no match was found
+AS a user
+I WANT to be able to search for songs and playlists from inputting an artist's name
+SO THAT I can find music of an artist I am interested in.
 ```
-
+## Acceptance-Criteria
 ```
-When a user visits the web application, they should see a search bar where they can input song lyrics.
-Upon submitting the lyrics, the application should fetch and display the corresponding song title and artist using the Genius Lyrics API.
-If the lyrics inputted are not recognized, the application should display a message indicating that no matching song was found.
-The application should display at least three song recommendations based on the inputted lyrics. These recommendations should be fetched from the Genius Lyrics API.
-Each song recommendation should display the song title and artist.
-The application should have a clean and user-friendly interface.
-The application should be responsive and work well on both desktop and mobile devices.
-The code should be well-organized, commented, and follow best practices for web development.
-The application should handle errors gracefully, displaying a user-friendly error message if the Genius Lyrics API is unreachable or returns an error.
-The application should be deployed and accessible via a public URL.
-```
+GIVEN when a user visits the web application,
+THEN they should see a search bar where they can input an artist name.
+WHEN inputting the artist name,
+THEN the application should fetch and display the top 3 tracks and top 3 playlists of the artist.
+WHEN the application displays the top 3 tracks and top 3 playlists,
+THEN this data should be fetched using a Spotify API with a jQuery method from Rapid API.
+WHEN the artist inputted is not recognized,
+THEN the application should display a message indicating that no matching artist was found.
+WHEN this data is displayed,
+THEN each track and playlist should render a corresponding cover art and title, along with button under the playlist that links to the corresponding playlist on the Spotify 
 
 
 # 07 Project 1: Interactive Front-End Application
