@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
-<body class="center-align lighten-2">
+<body class="center-align lighten-2 white-text">
   <header>
     
     <ul id="dropdown1" class="dropdown-content">
@@ -24,7 +24,7 @@
     </ul>
     
     <nav class="navbar">
-      <h1 class="left-align">Song Search</h1>
+      <h1 class="left-align">Discography Search</h1>
                
         <ul class="right hide-on-small-and-down">
           <!-- Dropdown Trigger -->
@@ -40,9 +40,12 @@
     <div>
       <div class="row">
         <div class="col s12">
+
           <div class="card">
             <div class="card-content black-text">
               <div class="container">
+
+
                 <form id="user-form">
                   <div class="input-field">
                     <i class="material-icons prefix">audiotrack</i>
@@ -54,16 +57,49 @@
                       <i class="material-icons right">search</i></button>
                   </div>
                 </form>
+
+
               </div>
             </div>
           </div>
 
-          <div id="artist-albums"></div>
-
-          <div id="artist-tracks"></div>
-          <div id="lyrics"></div>
+          <div class="card">
+            <div class="card-content">
+              <div id='recent-artists' class="container">
+                <h5>Recent Artists</h5>
+              </div>
+            </div>
           </div>
 
+
+            <div class="row">
+              <div id='albums' class="col s12 m4">
+                <div class="card">
+                  <div class="card-content">
+                    <h5>Albums</h5>
+                    <ul id="album-list"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <div id='songs' class="col s12 m4">
+                <div class="card">
+                  <div class="card-content">
+                    <h5>Songs</h5>
+                    <div id="song-list"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div id='lyrics' class="col s12 m4">
+                <div class="card">
+                  <div class="card-content">
+                    <h5>Lyrics</h5>
+                    <p id="lyrics-display"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
