@@ -17,17 +17,19 @@ const lyricsDisplay = document.querySelector('#lyrics-display');
  * 
  * ********************************************************************************************************
 */
-const formSubmitHandler = function (event) {
+const formSubmitHandler = async function (event) {
   event.preventDefault();
 
   albumListEl.innerHTML = ``;
   songListEl.innerHTML = ``;
   lyricsDisplay.innerHTML = ``;
 
+
+  console.log('nameInputEl.value:', nameInputEl.value);
   const artistName = nameInputEl.value.trim();
 
   if (artistName) {
-    getArtistId(artistName);
+    await getArtistId(artistName);
     nameInputEl.value = '';
   } else {
     alert('Please enter the artist name');
