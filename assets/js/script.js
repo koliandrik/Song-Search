@@ -7,14 +7,14 @@ const lyricsDisplay = document.querySelector('#lyrics-display');
 
 /*********************************************************************************************************
  * formSubmitHandler
- * 
+ *
  * Description:
- * 
+ *
  * This is the submit event handler that gets invoked when the artist name is entered and submit
  * button is pressed.
- * 
+ *
  * It calls the main function getArtistInfo() to search and retrieve artist's portfolio
- * 
+ *
  * ********************************************************************************************************
 */
 const formSubmitHandler = async function (event) {
@@ -34,7 +34,7 @@ const formSubmitHandler = async function (event) {
   } else {
     alert('Please enter the artist name');
   }
-};
+}
 
 async function getArtistId(artistName) {
 
@@ -47,7 +47,7 @@ async function getArtistId(artistName) {
       'X-RapidAPI-Key': 'c2062f4901mshf330d409dbb6836p1769c5jsna4924e5a2cd1',
       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     }
-  };
+  }
 
   try {
     const response = await fetch(url, options);
@@ -73,7 +73,7 @@ async function getArtistInfo(artistId) {
       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     }
   };
-  
+
   try {
     const response = await fetch(url, options);
     const result = await response.json();
@@ -108,7 +108,7 @@ function displayAlbums(albums) {
     albumListEl.appendChild(albumListItem);
 
     albumEl.addEventListener('click', function () {
-      getAlbumSongs(album.releases.items[0].id);      
+      getAlbumSongs(album.releases.items[0].id);
     });
   });
 }
@@ -134,9 +134,10 @@ async function getAlbumSongs(albumId) {
     console.error(error);
   }
 }
+
 function displaySongs(songs) {
   songListEl.innerHTML = ``;
-  
+
   songs.forEach(song => {
     const songListItem = document.createElement('li');
     songListItem.classList.add('card', 'p-2', 'm-2', 'bg-light', 'row', 'valign-wrapper');
@@ -146,7 +147,7 @@ function displaySongs(songs) {
     lyricsBtn.innerHTML = `<i class="material-icons">format_align_center</i>`;
 
     lyricsBtn.height = '100%'; // Set a fixed height for the embed
- 
+
     const songEmbed = document.createElement('embed');
     songEmbed.classList.add('m-2', 'left-align');
     songEmbed.src = song.track.uri.replace('spotify:track:', 'https://open.spotify.com/embed/track/');
@@ -157,14 +158,73 @@ function displaySongs(songs) {
 
     songListItem.appendChild(songEmbed);
     songListItem.appendChild(lyricsBtn);
-    
+
     songListEl.appendChild(songListItem);
 
     lyricsBtn.addEventListener('click', function () {
-      getLyrics(song.track.name, song.track.artists[0].name);
+      getSongId(song);
+      console.log(song);
     });
   });
 }
 
+async function getSongId(song) {
+  const url = `https://spotify23.p.rapidapi.com/search/?q=${song.track.name}&type=tracks&offset=0&limit=10&numberOfTopResults=5`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'x-rapidapi-key': 'c2062f4901mshf330d409dbb6836p1769c5jsna4924e5a2cd1',
+      'x-rapidapi-host': 'spotify23.p.rapidapi.com'
+    }
+  };
 
+
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    console.log(result);
+    const songId = result.tracks.items[0].data.id;
+    getLyrics(songId);
+  } catch (error) {
+    console.error(error);
+  }
+
+}
+
+async function getLyrics(songId) {
+  const url = `https://spotify23.p.rapidapi.com/track_lyrics/?id=${songId}`;
+const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': 'c2062f4901mshf330d409dbb6836p1769c5jsna4924e5a2cd1',
+		'x-rapidapi-host': 'spotify23.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+	console.log(result);
+  const lyrics = result.lyrics;
+  console.log(lyrics);
+  displayLyrics(lyrics);
+
+} catch (error) {
+	console.error(error);
+}
+}
+
+
+function displayLyrics(lyrics) {
+  lyricsDisplay.innerHTML = ``;
+  const lyricsEl = document.createElement('div');
+  lyricsEl.classList.add('card', 'p-2', 'm-2', 'bg-light');
+  for (let i = 0; i < lyrics.lines.length; i++) {
+    let lyricsLine = document.createElement('p');
+    lyricsLine.textContent = lyrics.lines[i].words;
+    lyricsEl.appendChild(lyricsLine);// Add a new line after each line of lyrics
+  }
+  lyricsDisplay.appendChild(lyricsEl);
+}
 userFormEl.addEventListener('submit', formSubmitHandler);
